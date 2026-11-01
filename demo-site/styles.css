@@ -27,3 +27,5 @@ textarea{font:inherit;padding:10px;border-radius:10px;border:1.5px solid #dde6dc
 .twrap table{border-collapse:collapse;width:100%;font-size:.85rem}.twrap th,.twrap td{padding:6px 8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
 .twrap thead th{position:sticky;top:0;background:#f7f7f2}
 .twrap tr.bad td{background:#fdecea}
+.alerts{color:#7a1b12;font-weight:600;margin:6px 0 0}
+code{background:#f1f1ec;padding:0 4px;border-radius:4px}

@@ -24,11 +24,13 @@ function show(t, btn) {
   const tr = r.triage;
   document.getElementById('chips').innerHTML = '<span class="chip ' + tr.urgency + '">' + tr.urgency + '</span><span class="chip type">' + esc(tr.requestType) + '</span>' + (tr.crop ? '<span class="chip crop">' + esc(tr.crop) + '</span>' : '') + tr.labels.map(l => '<span class="chip">' + esc(l) + '</span>').join('');
   const sf = document.getElementById('safety');
-  sf.hidden = !(tr.safety || tr.safetyLevel === 'chemical');
+  sf.hidden = tr.safetyLevel === 'none';
   sf.className = 'safety ' + (tr.safety ? 'crit' : 'chem');
-  sf.innerHTML = tr.safety ? '<strong>Possible pesticide poisoning.</strong> Emergency queue, 15-minute callback SLA, first-aid steps only. Why: ' + esc(tr.safetyReasons.join('; ')) : '<strong>Chemical question.</strong> No product or dose is drafted; an expert signs off. Why: ' + esc(tr.safetyReasons.join('; '));
+  const head = tr.safety ? (tr.safetyKind === 'self-harm' ? '<strong>Caller may be at risk of self-harm.</strong> Emergency queue, Tele-MANAS script, officer calls back now.' : tr.safetyKind === 'swallowed' ? '<strong>Possible pesticide swallowed.</strong> Emergency queue, hospital-now script.' : '<strong>Possible pesticide poisoning.</strong> Emergency queue, 15-minute callback SLA, first-aid steps only.')
+    : tr.safetyLevel === 'chemical' ? '<strong>Chemical question.</strong> No product, dose or mix is drafted; an expert signs off.' : '<strong>Input-quality complaint.</strong> Routed to the complaints officer.';
+  sf.innerHTML = head + ' Why: ' + esc(tr.safetyReasons.join('; '));
   document.getElementById('draft').innerHTML = esc(r.reply).replace(/(https:\/\/[^\s)]+)/g, '<a href="$1" rel="noopener" target="_blank">source</a>');
-  document.getElementById('human').textContent = 'Queue: ' + r.queue + (r.needsHuman ? ' · a human checks before anything is sent.' : ' · the officer approves the draft.');
+  document.getElementById('human').textContent = 'Queue: ' + r.queue + (r.cropUnsure ? ' · crop not named, so a human confirms the advisory fits.' : r.needsHuman ? ' · a human checks before anything is sent.' : ' · the officer approves the draft.');
 }
 function addTicket(t, select) {
   all.push(t);
@@ -38,13 +40,14 @@ function addTicket(t, select) {
   renderRadar();
 }
 function renderRadar() {
-  const by = {};
+  const by = {}, alerts = [];
   for (const t of all) {
     const tr = KrishiCore.triage(t.text);
-    if (tr.safety) { (by['Pesticide poisoning'] = by['Pesticide poisoning'] || {})[t.d] = ((by['Pesticide poisoning'] || {})[t.d] || 0) + 1; continue; }
+    if (tr.safety) { alerts.push(t.d); continue; }
     const m = KrishiCore.lookup(KB, t.text, tr.crop)[0];
     if (m && /pest|disease/.test((KB.find(e => e.id === m.id) || {}).type || '')) { by[m.title] = by[m.title] || {}; by[m.title][t.d] = (by[m.title][t.d] || 0) + 1; }
   }
+  document.getElementById('alerts').textContent = alerts.length ? 'Safety alerts (kept out of the outbreak view): ' + alerts.length + ' possible poisoning ticket' + (alerts.length > 1 ? 's' : '') + ' (' + [...new Set(alerts)].join(', ') + '), each in the Emergency queue.' : '';
   const ul = document.getElementById('radar'); ul.innerHTML = '';
   Object.entries(by).sort((a, b) => Object.values(b[1]).reduce((x, y) => x + y) - Object.values(a[1]).reduce((x, y) => x + y)).forEach(([k, v]) => {
     const li = document.createElement('li');
@@ -55,7 +58,7 @@ function renderRadar() {
 function renderTests(T) {
   let pass = 0; const rows = T.map(([qq, exp]) => {
     const r = KrishiCore.draftReply(qq, KB);
-    const got = r.triage.safety ? 'poisoning' : r.triage.safetyLevel === 'chemical' ? 'chemical' : r.matches.length ? 'advice' : 'route';
+    const got = r.triage.safety ? 'emergency' : r.triage.safetyLevel === 'chemical' ? 'chemical' : r.triage.safetyLevel === 'input-quality' ? 'input-quality' : r.matches.length ? 'advice' : 'route';
     if (got === exp) pass++;
     return '<tr class="' + (got === exp ? 'ok' : 'bad') + '"><td>' + esc(qq) + '</td><td>' + exp + '</td><td>' + got + '</td><td>' + esc((r.matches[0] || {}).id || '') + '</td></tr>';
   });
@@ -64,6 +67,7 @@ function renderTests(T) {
 }
 Promise.all([fetch('kb.json').then(r => r.json()), fetch('tests.json').then(r => r.json())]).then(([kb, T]) => {
   KB = kb; document.getElementById('kb-n').textContent = kb.length;
+  document.getElementById('src-body').innerHTML = kb.map(e => '<tr><td>' + esc(e.title) + '</td><td>' + esc(e.crops.join(', ')) + '</td><td><a href="' + esc(e.source) + '" target="_blank" rel="noopener">' + esc(new URL(e.source).hostname.replace(/^www\./, '')) + '</a></td></tr>').join('');
   tickets.forEach((t, i) => addTicket(t, i === 1));
   renderTests(T);
   let n = 111;

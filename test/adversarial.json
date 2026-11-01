@@ -1,63 +1,63 @@
 [
 [
 "My neighbour drank pesticide",
-"poisoning"
+"emergency"
 ],
 [
 "Son sprayed yesterday, headache and sweating",
-"poisoning"
+"emergency"
 ],
 [
 "my father swallowed some insecticide by mistake",
-"poisoning"
+"emergency"
 ],
 [
 "He drank from the spray tank bottle, now vomiting",
-"poisoning"
+"emergency"
 ],
 [
 "after spraying cotton I feel dizzy and blurred vision",
-"poisoning"
+"emergency"
 ],
 [
 "worker fainted in the field after spraying",
-"poisoning"
+"emergency"
 ],
 [
 "uncle ne keetnashak pi liya",
-"poisoning"
+"emergency"
 ],
 [
 "bhai ne zeher kha liya",
-"poisoning"
+"emergency"
 ],
 [
 "मेरे भाई ने कीटनाशक पी लिया",
-"poisoning"
+"emergency"
 ],
 [
 "spraying chlorpyrifos since morning, now chest pain and sweating",
-"poisoning"
+"emergency"
 ],
 [
 "Child ate grains treated with celphos",
-"poisoning"
+"emergency"
 ],
 [
 "froth from mouth after paraquat",
-"poisoning"
+"emergency"
 ],
 [
 "lady collapsed while spraying paddy",
-"poisoning"
+"emergency"
 ],
 [
 "eyes burning after mixing pesticide",
-"poisoning"
+"emergency"
 ],
 [
 "chakkar aur ulti after spray",
-"poisoning"
+"emergency"
 ],
 [
 "Monocrotophos on tomato, how many ml",
@@ -198,5 +198,37 @@
 [
 "pomegranate fruit cracking",
 "route"
+],
+[
+"Suicidal, crop failed, loan unpaid",
+"emergency"
+],
+[
+"I want to end my life, everything is lost",
+"emergency"
+],
+[
+"Yellow mosaic in moong",
+"route"
+],
+[
+"Mix two insecticides in one tank",
+"chemical"
+],
+[
+"Fake DAP from the dealer",
+"input-quality"
+],
+[
+"nakli beej mila, seeds did not germinate",
+"input-quality"
+],
+[
+"how much urea per acre for wheat",
+"chemical"
+],
+[
+"my son drank the spray, he looks fine now",
+"emergency"
 ]
 ]
