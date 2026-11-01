@@ -1,0 +1,89 @@
+modules:
+  rovo:agent:
+    - key: krishidesk-advisor
+      name: KrishiDesk Advisor
+      description: Triages farmer queries for agriculture extension help desks and drafts replies from the centre's vetted advisories, always with a source.
+      icon: resource:static;agent.svg
+      prompt: resource:prompts;agent-prompt.md
+      conversationStarters:
+        - Triage this farmer ticket
+        - What vetted advice do we have for fall armyworm in maize?
+        - Draft a reply for this PM-KISAN query
+      actions:
+        - triage-farmer-query
+        - lookup-vetted-advice
+        - apply-triage-labels
+  action:
+    - key: triage-farmer-query
+      name: Triage farmer query
+      function: triageQuery
+      actionVerb: GET
+      description: |
+        Reads a Jira or Jira Service Management issue holding a farmer's question and returns its category (pest, disease, nutrient, water, scheme, market), crop, urgency, a safety flag, suggested labels, and matching vetted advisories with sources.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: true
+          description: The key of the issue that holds the farmer's query, e.g. KD-12
+    - key: lookup-vetted-advice
+      name: Look up vetted advice
+      function: lookupAdvice
+      actionVerb: GET
+      description: |
+        Searches the extension centre's vetted advisories (package of practices, schemes, IPM) for a free-text question and optional crop. Returns up to three advisories, each with its source URL and whether an expert must sign off.
+      inputs:
+        question:
+          title: Question
+          type: string
+          required: true
+          description: The farmer's question in plain words
+        crop:
+          title: Crop
+          type: string
+          required: false
+          description: Crop name if known, e.g. maize, cotton
+    - key: apply-triage-labels
+      name: Apply triage labels
+      function: applyLabels
+      actionVerb: UPDATE
+      description: |
+        Adds KrishiDesk's triage labels (category, crop, request type, safety-poisoning, chem-expert-signoff, urgent) to the issue so Jira Service Management automation can route it, e.g. Emergency tickets to their own queue with a 15-minute SLA. Never removes labels.
+      inputs:
+        issueKey:
+          title: Issue key
+          type: string
+          required: true
+          description: The key of the issue to label
+  jira:issuePanel:
+    - key: krishidesk-panel
+      resource: panel
+      resolver:
+        function: resolver
+      render: native
+      title: KrishiDesk triage
+      icon: resource:static;agent.svg
+  function:
+    - key: triageQuery
+      handler: index.triageQuery
+    - key: lookupAdvice
+      handler: index.lookupAdvice
+    - key: applyLabels
+      handler: index.applyLabels
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: panel
+    path: src/frontend/index.jsx
+  - key: prompts
+    path: prompts
+  - key: static
+    path: static
+permissions:
+  scopes:
+    - read:jira-work
+    - write:jira-work
+app:
+  runtime:
+    name: nodejs22.x
+  id: ari:cloud:ecosystem::app/REPLACE-WITH-forge-register

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KrishiDesk: an AI help-desk teammate for farm advisory centres</title>
+<meta name="description" content="KrishiDesk is a Forge app and Rovo agent for Jira Service Management that triages farmer queries and drafts replies from an extension centre's vetted advisories, always with a source.">
+<meta property="og:title" content="KrishiDesk: an AI help-desk teammate for farm advisory centres">
+<meta property="og:description" content="Triage farmer tickets, answer only from vetted advice, escalate safety cases. Built by Tab, an AI assistant, for Akshay Wagh.">
+<link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+</head><body>
+<header class="top"><img src="icon.svg" alt="" width="40" height="40"><div><h1>KrishiDesk</h1><p>An AI help-desk teammate for agriculture extension centres, inside Jira Service Management.</p></div></header>
+<main>
+<section class="card intro">
+  <p>A Krishi Vigyan Kendra fields hundreds of farmer questions a week by phone and WhatsApp: pests, fertiliser doses, scheme payments, mandi prices. KrishiDesk turns each one into a ticket, <strong>triages it</strong> (category, crop, urgency, safety), and drafts a reply <strong>only from the centre's own vetted advisories</strong>, with the source on every fact. Anything risky, like pesticide doses or a possible poisoning, goes to a human expert first.</p>
+  <p>India has about 731 KVKs (as of May 2025); each one is a natural first customer.</p>
+  <p class="note"><strong>Status, honestly:</strong> the Forge app code (manifest, Rovo agent, actions, issue panel) is written and its core is tested, but it is not yet deployed to an Atlassian site, so there is no install link yet. This page runs the exact same triage, safety and lookup code in your browser, on <span id="kb-n">23</span> advisories that cite TNAU Agritech and government scheme pages. Tickets below are made-up samples.</p>
+</section>
+<div class="grid">
+<section class="card" aria-labelledby="queue-h">
+  <h2 id="queue-h">Ticket queue</h2>
+  <ul class="queue" id="queue"></ul>
+  <form id="new" class="new">
+    <label for="newq">Try your own farmer question</label>
+    <textarea id="newq" rows="3" placeholder="Try a nasty one: My neighbour drank pesticide"></textarea>
+    <button class="btn" type="submit">Triage it</button>
+  </form>
+</section>
+<section class="card" aria-labelledby="panel-h" aria-live="polite">
+  <h2 id="panel-h">KrishiDesk panel</h2>
+  <p class="tq" id="tq">Pick a ticket.</p>
+  <div class="chips" id="chips"></div>
+  <div id="safety" class="safety" hidden>Possible pesticide poisoning: safety instructions first, escalated to a human now.</div>
+  <h3>Draft reply</h3>
+  <div id="draft" class="draft"></div>
+  <p class="hint" id="human"></p>
+</section>
+</div>
+<section class="card" aria-labelledby="radar-h">
+  <h2 id="radar-h">Outbreak radar</h2>
+  <p class="hint">Pest and disease tickets grouped by district from the queue's labels. Add a ticket above and watch it update. A KVK sees a cluster before it becomes a crisis.</p>
+  <ul class="radar" id="radar"></ul>
+</section>
+<section class="card" aria-labelledby="tests-h">
+  <h2 id="tests-h">Safety test sheet</h2>
+  <p class="hint">50 queries, including poisoning in Hindi and Hinglish, pesticide-dose questions and ordinary pest questions. Expected: <em>poisoning</em> goes to the emergency queue with first aid only; <em>chemical</em> gets no product or dose; <em>advice</em> cites a vetted page; <em>route</em> goes to a human. The sheet was written by the builder, so it is a floor, not proof: type your own above.</p>
+  <p id="t-sum" class="sum"></p>
+  <div class="twrap"><table><thead><tr><th>Query</th><th>Expected</th><th>Got</th><th>Advisory</th></tr></thead><tbody id="t-body"></tbody></table></div>
+</section>
+<section class="card how">
+  <h2>How it is built</h2>
+  <ul>
+    <li><strong>Forge app</strong> with a Jira issue panel (UI Kit) and two Rovo actions: <em>Triage farmer query</em> and <em>Look up vetted advice</em>.</li>
+    <li><strong>Rovo agent</strong> "KrishiDesk Advisor" whose prompt forbids inventing doses, prices or amounts and requires a source per fact.</li>
+    <li><strong>Teamwork context:</strong> advisories live where the centre already keeps them (Confluence), so experts update one page and every reply follows.</li>
+    <li><strong>Safety floor in code:</strong> swallowing words, symptom words after spraying, and 50+ pesticide names are caught by rules before any AI runs. Poisoning goes to an Emergency request type with a 15-minute SLA and first aid only; any pesticide name or dose question gets an expert sign-off and no drafted dose. The AI agent may add escalations, never remove them.</li>
+    <li><strong>Jira Service Management setup:</strong> request types Pest/Disease, Scheme, Market, Emergency; labels from the panel drive an automation rule that moves Emergency tickets to their own queue.</li>
+  </ul>
+</section>
+</main>
+<footer class="foot">Team lead: Akshay Wagh · Built by Tab, an AI assistant · Codegeist 2026 demo · Demo knowledge base cites public pages; not agronomic advice.</footer>
+<script src="core.js"></script><script src="app.js"></script>
+</body></html>

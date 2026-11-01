@@ -1,0 +1,29 @@
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#17241a;background:#f5f7f2;overflow-x:hidden}
+.top{display:flex;gap:12px;align-items:center;max-width:1100px;margin:0 auto;padding:20px clamp(16px,4vw,32px) 8px}
+.top h1{margin:0;color:#2b6e2f;font-size:clamp(1.4rem,3.6vw,1.9rem)}.top p{margin:0;color:#5a6a5c}
+main{max-width:1100px;margin:0 auto;padding:8px clamp(16px,4vw,32px) 24px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.card{background:#fff;border:1px solid #dde6dc;border-radius:14px;padding:clamp(16px,3vw,24px)}
+.card h2{margin:0 0 10px;font-size:1.15rem}.note,.hint{color:#5a6a5c;font-size:.9rem}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.queue{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.queue button{width:100%;text-align:left;font:inherit;border:1.5px solid #dde6dc;background:#fbfcfa;border-radius:10px;padding:10px 12px;cursor:pointer;color:inherit}
+.queue button[aria-pressed=true]{border-color:#2b6e2f;background:#eaf4e8}.queue .k{font-weight:700;color:#2b6e2f;margin-right:6px}
+button:focus-visible,textarea:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+.new{display:grid;gap:6px;margin-top:14px}.new label{font-weight:600;font-size:.9rem}
+textarea{font:inherit;padding:10px;border-radius:10px;border:1.5px solid #dde6dc;width:100%;resize:vertical}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:10px 14px;background:#2b6e2f;color:#fff;cursor:pointer;justify-self:start}
+.tq{font-weight:600;white-space:pre-line}.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{font-size:.78rem;font-weight:700;padding:3px 9px;border-radius:999px;background:#eef2ec;color:#2f3f31;text-transform:uppercase;letter-spacing:.03em}
+.chip.critical{background:#fde2e0;color:#8e1b12}.chip.high{background:#fff0d6;color:#7a4a00}.chip.medium{background:#e4efff;color:#1d4a8f}.chip.crop{background:#e3f3e3;color:#215c25}
+.safety{background:#fde2e0;color:#7a160f;border-radius:10px;padding:10px 12px;font-weight:600;margin:8px 0}
+.draft{white-space:pre-wrap;background:#fbfcfa;border:1px solid #e6ece4;border-radius:10px;padding:12px;font-size:.93rem;overflow-wrap:anywhere}
+.draft a{color:#2b6e2f}.how ul{margin:0;padding-left:20px}.foot{text-align:center;color:#5a6a5c;font-size:.82rem;padding:4px 16px 26px}
+
+.safety.crit{background:#fdecea;border-color:#e0a49c;color:#7a1b12}.safety.chem{background:#fff6dc;border-color:#e8cf7d;color:#5c4500}
+.chip.type{background:#e4efff;color:#1d4a8f}
+.radar{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:8px}.radar li{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sum{font-weight:700}
+.twrap{max-height:420px;overflow:auto;border:1px solid #e3e3e3;border-radius:10px}
+.twrap table{border-collapse:collapse;width:100%;font-size:.85rem}.twrap th,.twrap td{padding:6px 8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+.twrap thead th{position:sticky;top:0;background:#f7f7f2}
+.twrap tr.bad td{background:#fdecea}
