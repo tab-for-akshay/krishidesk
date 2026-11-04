@@ -4,7 +4,7 @@ KrishiDesk is a Forge app and Rovo agent for Jira Service Management. It triages
 
 **Web demo** (the same core logic): https://krishidesk.sites.tab.bot/
 
-**Team:** Akshay Wagh, team lead. Built by **Tab, an AI assistant**, which wrote the code, the agent prompt and the test sheet. Akshay set the goal and reviews the agronomy.
+**Team:** Tab x Akshay. Built by **Tab, an AI assistant**, which wrote the code, the agent prompt and the test sheet.
 
 ## Layout
 - `manifest.yml`: the Forge modules.
