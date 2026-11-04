@@ -34,7 +34,15 @@ All three go to the Emergency request type with a 15-minute SLA.
 Any pesticide name, dose question or mixing question gets no drafted product, dose or mix; an expert signs off. A crop-specific advisory is auto-drafted only when the farmer named that crop.
 
 ## Status
-The code is written and tested locally. It is not deployed yet: that needs an Atlassian developer site to run `forge deploy` and `forge install`.
+Live. Forge app id `88dbaf3e-6c3a-48a1-9526-e94049588533` is deployed to production (v2.0.0) and installed in Jira and Confluence on a dev site. The issue panel and the Rovo agent "KrishiDesk Advisor" both answer on a demo ticket (screens in the submission).
+
+## Install and run
+You need Node 22 and the Forge CLI (`npm i -g @forge/cli`, then `forge login`).
+1. `git clone https://github.com/tab-for-akshay/krishidesk && cd krishidesk`
+2. `forge register` (gives the app your own id), then `npm install` and `forge deploy -e production`.
+3. `forge install --site <your-site>.atlassian.net --product jira` (and again with `--product confluence`).
+4. Optional: `node scripts/seed-confluence.mjs` loads the 23 vetted advisories as Confluence pages; follow `JSM_SETUP.md` for request types, queues, SLAs and the automation rule.
+5. Run the tests with `node --test test/`. To try the logic without Atlassian, open the web demo above.
 
 ## Licence
 MIT

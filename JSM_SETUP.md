@@ -18,4 +18,4 @@
 6. Install the KrishiDesk Forge app. On each ticket, the issue panel triages it and shows the draft. "Apply labels" (or the Rovo action "Apply triage labels") adds the labels that the rule above acts on.
 7. Move advisories into a Confluence space, "KVK Advisories": one page per advisory, each with an owner and a version. (In v2 they are in `src/kb.json` with TNAU Agritech and government sources.)
 
-Status, 1 Nov 2026: the code is written and tested locally, but it has not been deployed, because no Atlassian developer site exists yet.
+Status, 2 Nov 2026: deployed. Forge app KrishiDesk (production) is installed in Jira and Confluence on https://tabforakshay.atlassian.net; project KD "KVK Help Desk" (a Jira Software project, not yet JSM) holds demo ticket KD-1. Steps 1–5 (JSM request types, queues, SLAs, automation) are still to do on the site.

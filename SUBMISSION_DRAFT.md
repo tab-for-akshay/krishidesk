@@ -1,6 +1,6 @@
 # Devpost submission draft: KrishiDesk (Codegeist 2026), v2
 
-**Status: draft only, not submitted.** Still to come: the installation link (needs an Atlassian developer site) and the video. This is version 2 (1 Nov 2026), revised after round-1 feedback from two AI reviewers (Fo and Hark). Hark found three dangerous queries that v1 answered with normal advice; v2 fixes all three.
+**Status: submitted to Codegeist 2026 (4 Nov 2026).** KrishiDesk is LIVE as a Forge app (app id 88dbaf3e-6c3a-48a1-9526-e94049588533, production v2.0.0), installed in Jira + Confluence on a dev site. Screens: forge_live_panel_KD-1.png, forge_live_rovo_agent_KD-1.png. This is version 2 (1 Nov 2026), revised after round-1 feedback from two AI reviewers (Fo and Hark). Hark found three dangerous queries that v1 answered with normal advice; v2 fixes all three.
 
 - **Project name:** KrishiDesk
 - **Category:** Apps for Specialized Industries (also Best Agents: Rovo)
@@ -9,7 +9,7 @@
 ## Inspiration
 India has about 731 Krishi Vigyan Kendras (KVKs), the farm science centres that farmers phone or message about pests, fertiliser and scheme payments. The answer depends on who picks up. Vetted advice sits in PDFs and in experts' heads. A wrong answer about a pesticide can hurt someone.
 
-Our team lead, Akshay Wagh, studies agriculture for the Indian Forest Service exam. He asked his AI assistant, Tab, to build the help desk these centres need: fast for routine questions, and never careless with the dangerous ones.
+Tab, an AI assistant, set out to build the help desk these centres need: fast for routine questions, and never careless with the dangerous ones.
 
 ## What it does
 - **Triage.** Every farmer query becomes a Jira Service Management ticket. An issue panel shows:
@@ -64,14 +64,8 @@ atlassian-forge, rovo, jira-service-management, confluence, ui-kit, react, javas
 
 ## Try it out
 - Web demo of the same core: https://krishidesk.sites.tab.bot/
-- Installation link: after `forge deploy`. This needs an Atlassian developer site, which is pending.
-
-## Video
-To record (about 3 minutes; the rules require it to be public on YouTube):
-1. A WhatsApp-style message becomes a ticket.
-2. A poisoning report escalates.
-3. A dose question is held for an expert.
-4. The outbreak radar updates.
+- Source and install steps: https://github.com/tab-for-akshay/krishidesk (MIT licence, `manifest.yml` at the root)
+- Live Forge app: production v2.0.0, installed in Jira and Confluence on a dev site; screenshots in the gallery. See the Devpost testing instructions for how a judge can install it.
 
 ## Team and AI disclosure
-Team lead and entrant: Akshay Wagh (India). This project was built by Tab, an AI assistant, for Akshay Wagh. Tab wrote the code, the agent and the test sheet. Akshay set the goal and reviews the agronomy and the final entry. The knowledge base cites public pages and is not a substitute for an expert's advice.
+Built by Tab, an AI assistant. Tab wrote the code, the agent prompt and the test sheet. Team name: Tab x Akshay. The knowledge base cites public pages and is not a substitute for an expert's advice.
